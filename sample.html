@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      #map {
+        height: 100%;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPgVNNuhGeY8hU_6mUTAo8Mz7Z0fpNJZY&callback=initMap"></script>
+    <script>
+    function initMap() {
+       var myLatLng = {lat: 35.381904, lng: 139.926156};
+       var mylatlng = {lat: 35.384154, lng: 139.955805};
+
+       var map = new google.maps.Map(document.getElementById('map'), {
+           zoom: 14,
+           center: myLatLng
+       });
+
+       var marker = new google.maps.Marker({
+           position: myLatLng,
+           map: map,
+           animation: google.maps.Animation.DROP
+       });
+       var marker = new google.maps.Marker({
+           position: mylatlng,
+           map: map,
+           animation: google.maps.Animation.DROP
+       });
+       var polyline = new google.maps.Polyline( {
+       	map: map ,
+       	path: [
+       		new google.maps.LatLng( 35.381904, 139.926156 ) ,
+       		new google.maps.LatLng( 35.384154, 139.955805 ) ,
+       	],
+       });
+   }
+   initMap();
+
+   var latLngBounds = new google.maps.LatLngBounds() ;
+
+   polyline.getPath().forEach( function ( latLng ) {
+   	latLngBounds.extend( latLng ) ;
+   } ) ;
+
+   map.fitBounds( latLngBounds ) ;
+   </script>
+  </body>
+</html>
