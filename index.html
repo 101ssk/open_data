@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+#map-canvas {
+	width: 1200px;
+	height: 1000px;
+}
+	</style>
+</head>
+<body>
+	<div id="map"></div>
+
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKN-A2iQENcBAp4Tz9bxdeHHw_uurTHFE=initMap"></script>
+	<script>
+var mapDiv = document.getElementById( "map" ) ;
+
+// Map
+var map = new google.maps.Map( mapDiv, {
+	center: new google.maps.LatLng( 35.384154, 139.955805) ,
+	zoom: 14 ,
+} ) ;
+
+// Polyline
+var polyline = new google.maps.Polyline( {
+	map: map ,
+	path: [
+		new google.maps.LatLng( 35.381904, 139.926156 ) ,
+		new google.maps.LatLng( 35.384154, 139.955805 ) ,
+	] ,
+} ) ;
+
+// fit bounds
+var latLngBounds = new google.maps.LatLngBounds() ;
+
+polyline.getPath().forEach( function ( latLng ) {
+	latLngBounds.extend( latLng ) ;
+} ) ;
+
+
+map.fitBounds( latLngBounds ) ;
+	</script>
+</body>
+</html>
